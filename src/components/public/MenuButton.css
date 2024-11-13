@@ -1,0 +1,13 @@
+.menu_button_container {
+    min-width: 20%;
+    /*border: 1px solid black;*/
+}
+
+.menu_button_container:hover {
+    background: #f5f5f5;
+    /*color: grey;*/
+}
+
+.menu_text {
+    padding: 15px 25px;
+}

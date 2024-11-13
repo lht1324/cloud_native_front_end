@@ -1,0 +1,27 @@
+.header_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.menu_list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 48px;
+}
+
+h6 {
+    font-size: 24px;
+}
+
+p {
+    font-size: 24px;
+}
