@@ -1,6 +1,11 @@
+.main_body_container {
+    width: 100%;
+}
+
 .introduction_container {
     width: fit-content;
     text-align: start;
+    justify-self: center;
 }
 
 p {

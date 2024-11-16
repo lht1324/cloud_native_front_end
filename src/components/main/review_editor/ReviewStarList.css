@@ -1,0 +1,15 @@
+.review_star_list_container {
+    width: fit-content;
+}
+
+.star_list {
+    display: flex;
+    flex-direction: row;
+    /*padding: 10px;*/
+    /*gap: 5px;*/
+}
+
+.star {
+    max-width: 32px;
+    max-height: 32px;
+}

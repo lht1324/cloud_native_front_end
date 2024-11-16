@@ -1,0 +1,35 @@
+.review_editor_container {
+    width: 100%;
+    justify-self: center;
+}
+
+.editor {
+    resize: none;
+
+    max-width: 40vw;
+    min-width: 30vw;
+    min-height: 20vh;
+    height: auto;
+    padding: 20px;
+    border: 0;
+    border-bottom: 2px solid black;
+
+    font-family: Pretendard, sans-serif;
+    font-size: 16px;
+}
+
+.editor:focus {
+    border: none;
+    border-bottom: 2px solid black;
+    outline: none;
+}
+
+.finish_button {
+    /*border: none;*/
+    padding: 5px 10px;
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+
+    font-size: 16px;
+}
