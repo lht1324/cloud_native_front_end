@@ -1,8 +1,8 @@
-.main_body_container {
+.main_body_wrapper {
     width: 100%;
 }
 
-.introduction_container {
+.introduction_wrapper {
     width: fit-content;
     text-align: start;
     justify-self: center;

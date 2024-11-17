@@ -1,30 +1,31 @@
 import "./ReviewEditor.css"
 import ReviewStarList from "./ReviewStarList";
 import Column from "../../public/Column";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import Spacer from "../../public/Spacer";
-import Row from "../../public/Row";
+import TextEditor from "../../public/TextEditor";
+import {useSimpleCallback} from "../../../hook/useSimpleCallback";
 
 function ReviewEditor() {
     const [storeName, setStoreName] = useState("")
     const [reviewText, setReviewText] = useState("")
     const [starCount, setStarCount] = useState(0.0);
 
-    const onChangeStoreName = (e) => {
+    const onChangeStoreName = useCallback((e) => {
         setStoreName(e.target.value)
-    }
-    const onChangeReviewText = (e) => {
+    }, [])
+    const onChangeReviewText = useCallback((e) => {
         setReviewText(e.target.value)
-    }
-    const onChangeStar = (count) => {
+    }, [])
+    const onChangeStar = useCallback((count) => {
         setStarCount(count)
-    }
-    const onClickFinishButton = () => {
+    }, [])
+    const onClickFinishButton = useCallback(() => {
         console.log(`Review\n${reviewText}\nstarCount = ${starCount}`)
-    }
+    }, [])
 
     return (
-        <div className="review_editor_container">
+        <div className="review_editor_wrapper">
             <Column
                 className="review_editor_wrapper"
                 style={{
@@ -33,8 +34,8 @@ function ReviewEditor() {
                     justifySelf: "center"
                 }}
             >
-                <textarea className="editor" style={{ minHeight: "50px"}} placeholder="가게 이름" value={storeName} onChange={(e) => onChangeStoreName(e)}/>
-                <textarea className="editor" placeholder="리뷰" value={reviewText} onChange={(e) => onChangeReviewText(e)}/>
+                <TextEditor className="editor" placeholder="가게 이름" value={storeName} onChange={(e) => onChangeStoreName(e)}/>
+                <TextEditor className="editor" placeholder="리뷰" value={reviewText} onChange={(e) => onChangeReviewText(e)}/>
                 <Spacer length={15}/>
                 <ReviewStarList className="review_star" onChangeStar={(count) => onChangeStar(count)}/>
                 <Spacer length={15}/>

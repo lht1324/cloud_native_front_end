@@ -1,11 +1,13 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url('https://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
 .App {
   text-align: center;
-  font-family: Pretendard, sans-serif;
+  font-family: NanumGothic, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, p {
+  width: fit-content;
   margin-top: 0;
   margin-bottom: 0;
 }

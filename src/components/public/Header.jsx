@@ -9,7 +9,7 @@ function Header(
     }
 ) {
     return (
-        <div className="header_container">
+        <div className="header_wrapper">
             <div className="title">
                 <h1>ㅇㅈㅁ?</h1>
             </div>

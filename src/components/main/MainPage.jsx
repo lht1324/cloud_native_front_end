@@ -4,7 +4,7 @@ import "./MainPage.css"
 
 function MainPage(props) {
     return (
-        <div className="main_page_container">
+        <div className="main_page_wrapper">
             <Header />
             <MainBody />
         </div>

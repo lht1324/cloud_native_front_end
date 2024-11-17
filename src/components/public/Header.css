@@ -1,8 +1,9 @@
-.header_container {
+.header_wrapper {
     display: flex;
     flex-direction: column;
 
     width: 100%;
+    align-items: center;
 }
 
 .title {
@@ -15,5 +16,6 @@
 .menu_list {
     display: flex;
     flex-direction: row;
+    width: 100%;
     justify-content: space-between;
 }
