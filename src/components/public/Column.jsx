@@ -1,3 +1,5 @@
+import {memo, useMemo} from "react";
+
 function Column({ children, className, style }) {
     const columnStyle = {
         ...{
@@ -6,6 +8,7 @@ function Column({ children, className, style }) {
         },
         ...style,
     }
+
     return (
         <div className={className} style={columnStyle}>
             {children}
@@ -13,4 +16,4 @@ function Column({ children, className, style }) {
     )
 }
 
-export default Column;
+export default memo(Column);

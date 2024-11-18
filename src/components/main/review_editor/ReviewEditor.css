@@ -3,11 +3,37 @@
     justify-self: center;
 }
 
-.editor {
-    resize: none;
+.review_editor_container {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    align-items: flex-end;
+    justify-self: center;
+}
 
-    max-width: 40vw;
-    min-width: 30vw;
+.editor_store_name {
+    max-width: 30vw;
+    min-width: 20vw;
+    height: 2vh;
+    padding: 20px;
+    border: 0;
+    border-bottom: 2px solid black;
+
+    font-family: Pretendard, sans-serif;
+    font-size: 16px;
+
+    overflow: hidden;
+}
+
+.editor_store_name:focus {
+    border: none;
+    border-bottom: 2px solid black;
+    outline: none;
+}
+
+.editor_review_text {
+    max-width: 30vw;
+    min-width: 20vw;
     min-height: 20vh;
     height: auto;
     padding: 20px;
@@ -18,7 +44,7 @@
     font-size: 16px;
 }
 
-.editor:focus {
+.editor_review_text:focus {
     border: none;
     border-bottom: 2px solid black;
     outline: none;

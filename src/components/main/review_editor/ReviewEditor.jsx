@@ -1,50 +1,45 @@
 import "./ReviewEditor.css"
 import ReviewStarList from "./ReviewStarList";
 import Column from "../../public/Column";
-import {useCallback, useState} from "react";
+import {memo, useCallback, useRef, useState} from "react";
 import Spacer from "../../public/Spacer";
 import TextEditor from "../../public/TextEditor";
-import {useSimpleCallback} from "../../../hook/useSimpleCallback";
 
 function ReviewEditor() {
-    const [storeName, setStoreName] = useState("")
-    const [reviewText, setReviewText] = useState("")
-    const [starCount, setStarCount] = useState(0.0);
+    const storeNameRef = useRef("")
+    const reviewTextRef = useRef("")
+    const starCountRef = useRef(0.0)
 
-    const onChangeStoreName = useCallback((e) => {
-        setStoreName(e.target.value)
+    const onChangeStoreName = useCallback((text) => {
+        if (text.takeLast !== "\n") {
+            storeNameRef.current = text
+        }
     }, [])
-    const onChangeReviewText = useCallback((e) => {
-        setReviewText(e.target.value)
+    const onChangeReviewText = useCallback((text) => {
+        if (text.takeLast !== "\n") {
+            reviewTextRef.current = text
+        }
     }, [])
     const onChangeStar = useCallback((count) => {
-        setStarCount(count)
+        starCountRef.current = count
     }, [])
     const onClickFinishButton = useCallback(() => {
-        console.log(`Review\n${reviewText}\nstarCount = ${starCount}`)
+        console.log(`Review\n${reviewTextRef.current}\nstarCount = ${starCountRef.current}`)
     }, [])
 
     return (
         <div className="review_editor_wrapper">
-            <Column
-                className="review_editor_wrapper"
-                style={{
-                    width: "max-content",
-                    alignItems: "flex-end",
-                    justifySelf: "center"
-                }}
-            >
-                <TextEditor className="editor" placeholder="가게 이름" value={storeName} onChange={(e) => onChangeStoreName(e)}/>
-                <TextEditor className="editor" placeholder="리뷰" value={reviewText} onChange={(e) => onChangeReviewText(e)}/>
+            <Column className="review_editor_container">
+                <TextEditor className="editor_store_name" placeholder="가게 이름" onChange={onChangeStoreName} rows={1}/>
+                <TextEditor className="editor_review_text" placeholder="리뷰" onChange={onChangeReviewText}/>
                 <Spacer length={15}/>
-                <ReviewStarList className="review_star" onChangeStar={(count) => onChangeStar(count)}/>
+                <ReviewStarList className="review_star" onChangeStar={onChangeStar}/>
                 <Spacer length={15}/>
-                <button className="finish_button" onClick={() => onClickFinishButton()}>작성 완료</button>
+                <button className="finish_button" onClick={onClickFinishButton}>작성 완료</button>
             </Column>
-            <div style={{ width: "40vw"}}></div>
         </div>
     )
     // 리뷰 왼쪽 리스트 오른쪽 하자
 }
 
-export default ReviewEditor;
+export default memo(ReviewEditor);

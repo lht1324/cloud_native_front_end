@@ -1,3 +1,5 @@
+import {memo} from "react";
+
 function Spacer({ isHorizontal = true, length = 10 }) {
     const style = isHorizontal ?
         { width: "100%", height: `${length}px` } :
@@ -8,4 +10,4 @@ function Spacer({ isHorizontal = true, length = 10 }) {
     )
 }
 
-export default Spacer
+export default memo(Spacer);

@@ -19,7 +19,7 @@ function ReviewStarList({
     // 0, 0.5, 1.0, ... 5.0
     // 0, 1, 2, ... 10
     // 실수로 저장하면 불안하니 정수로 관리하고 보여줄 때 2.0f로 나눠 보여준다.
-    const [currentStarCount, setCurrentStarCount] = useState(0);
+    const currentStarCount = useRef(0)
 
     const [isHoverStarList, setIsHoverStarList] = useState(false);
 
@@ -42,9 +42,9 @@ function ReviewStarList({
         }
     }, [starStateList])
     const onClickStarList = useCallback(() => {
-        setCurrentStarCount(starStateList.sum())
-        onChangeStar(currentStarCount)
-    }, [currentStarCount, onChangeStar, starStateList])
+        currentStarCount.current = starStateList.sum()
+        onChangeStar(currentStarCount.current)
+    }, [onChangeStar, starStateList])
 
     useEffect(() => {
         listAbsoluteX.current = Math.round(
@@ -53,16 +53,18 @@ function ReviewStarList({
     }, [])
 
     useEffect(() => {
-        if (starStateList.sum() !== currentStarCount && !isHoverStarList) {
+        const starCount = currentStarCount.current
+
+        if (starStateList.sum() !== starCount && !isHoverStarList) {
             setStarStateList(prevState => {
                 return Array.isArray(prevState) && prevState.map((starState, index) => {
-                    return index < currentStarCount
-                        ? (currentStarCount - index) === 0.5 ? 0.5 : 1.0
+                    return index < starCount
+                        ? (starCount - index) === 0.5 ? 0.5 : 1.0
                         : 0.0
                 })
             })
         }
-    }, [currentStarCount, isHoverStarList, starStateList])
+    }, [isHoverStarList, starStateList])
 
     const mounted = useRef(false)
 
@@ -79,10 +81,10 @@ function ReviewStarList({
             className="review_star_list_wrapper"
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-            onMouseMove={(e) => onMouseMove(e)}
+            onMouseMove={onMouseMove}
         >
             <Column>
-                <Row onClick={() => onClickStarList()}>{Array.isArray(starStateList) &&
+                <Row onClick={onClickStarList}>{Array.isArray(starStateList) &&
                     starStateList.map((starState, starIndex) => {
                         return <StarImage
                             key={`star${starIndex}`}

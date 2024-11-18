@@ -7,7 +7,11 @@ function ReviewList({ reviewDataList = [] }) {
         <div className="review_list_wrapper">
             {
                 reviewDataList.map((reviewData, index) => {
-                    return <ReviewListItem key={index} reviewData={reviewData}/>
+                    return <ReviewListItem
+                        key={index}
+                        reviewData={reviewData}
+                        isLastItem={reviewDataList.length === index + 1}
+                    />
                 })
             }
         </div>
