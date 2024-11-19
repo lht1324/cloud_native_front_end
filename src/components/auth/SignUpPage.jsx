@@ -1,7 +1,7 @@
 import "./SignUpPage.css"
 import Header from "../public/Header";
 import Spacer from "../public/Spacer";
-import AuthInfoInput from "./AuthInfoInput";
+import AuthInfoBox from "./autoinfo/AuthInfoBox";
 import Footer from "../public/Footer";
 
 function SignUpPage() {
@@ -9,7 +9,7 @@ function SignUpPage() {
         <div className="sign_up_page_wrapper">
             <Header />
             <Spacer height="48px"/>
-            <AuthInfoInput title="회원가입"/>
+            <AuthInfoBox title="회원가입"/>
             <Footer/>
         </div>
     )

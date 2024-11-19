@@ -15,10 +15,6 @@ function ReviewStarList({
         Full: 1.0
      */
     const [starStateList, setStarStateList] = useState([0.0, 0.0, 0.0, 0.0, 0.0]);
-
-    // 0, 0.5, 1.0, ... 5.0
-    // 0, 1, 2, ... 10
-    // 실수로 저장하면 불안하니 정수로 관리하고 보여줄 때 2.0f로 나눠 보여준다.
     const currentStarCount = useRef(0)
 
     const [isHoverStarList, setIsHoverStarList] = useState(false);
