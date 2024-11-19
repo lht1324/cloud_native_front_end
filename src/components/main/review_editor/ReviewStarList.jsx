@@ -9,10 +9,11 @@ function ReviewStarList({
     onChangeStar
 }) {
     const listAbsoluteX = useRef(0.0)
+    const currentMousePosition = useRef(0.0)
     /*
         Empty: 0.0
         Half: 0.5
-        Full: 1
+        Full: 1.0
      */
     const [starStateList, setStarStateList] = useState([0.0, 0.0, 0.0, 0.0, 0.0]);
 
@@ -27,17 +28,23 @@ function ReviewStarList({
     const onMouseLeave = useCallback(() => setIsHoverStarList(false), [])
     
     const onMouseMove = useCallback((e) => {
-        const currentMousePosition = Math.round(((e.clientX - listAbsoluteX.current) / 32) * 10) / 10
+        const prevMousePosition = currentMousePosition.current
+        const newMousePosition = Math.round(((e.clientX - listAbsoluteX.current) / 32) * 10) / 10
 
-        if (Array.isArray(starStateList) && currentMousePosition >= 0) {
-            const mousePosition = currentMousePosition
-            const originalStarStateList = starStateList
-            const newStarStateList = originalStarStateList.map((starState, starIndex) => {
-                return getStarState(mousePosition, starIndex, starIndex + 1)
-            })
+        if (newMousePosition >= 0) {
+            if (prevMousePosition !== newMousePosition) {
+                if (Array.isArray(starStateList)) {
+                    const originalStarStateList = starStateList
+                    const newStarStateList = originalStarStateList.map((starState, starIndex) => {
+                        return getStarState(newMousePosition, starIndex, starIndex + 1)
+                    })
 
-            if (JSON.stringify(originalStarStateList) !== JSON.stringify(newStarStateList)) {
-                setStarStateList(newStarStateList)
+                    if (JSON.stringify(originalStarStateList) !== JSON.stringify(newStarStateList)) {
+                        setStarStateList(newStarStateList)
+                    }
+
+                    currentMousePosition.current = newMousePosition
+                }
             }
         }
     }, [starStateList])
@@ -63,6 +70,7 @@ function ReviewStarList({
                         : 0.0
                 })
             })
+            currentMousePosition.current = starCount
         }
     }, [isHoverStarList, starStateList])
 
