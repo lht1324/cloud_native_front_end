@@ -8,7 +8,7 @@ function SignUpPage() {
     return (
         <div className="sign_up_page_wrapper">
             <Header />
-            <Spacer length={48}/>
+            <Spacer height="48px"/>
             <AuthInfoInput title="회원가입"/>
             <Footer/>
         </div>

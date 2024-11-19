@@ -1,9 +1,7 @@
 import {memo} from "react";
 
-function Spacer({ isHorizontal = true, length = 10 }) {
-    const style = isHorizontal ?
-        { width: "100%", height: `${length}px` } :
-        { width: `${length}px`, height: "100%" }
+function Spacer({ width = "100%", height = "100%" }) {
+    const style = { width: width, height: height }
 
     return (
         <div className="spacer" style={style}/>

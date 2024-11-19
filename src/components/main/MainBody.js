@@ -9,7 +9,7 @@ import RatioSpacer from "../public/RatioSpacer";
 function MainBody() {
     return (
         <div className="main_body_wrapper">
-            <Spacer length={24}/>
+            <Spacer height="24px"/>
             <div className="introduction_wrapper">
                 <p>일도 다 먹고살자고 하는 것 아니겠습니까?</p>
                 <p>오늘도 어김없이 점심 메뉴를 검색한 당신.</p>
@@ -22,17 +22,17 @@ function MainBody() {
                 <p>당신의 점심을 건네고, 다른 사람의 점심을 받는 사이트.</p>
                 <p><b>ㅇㅈㅁ</b>입니다.</p>
             </div>
-            <Spacer length={48}/>
+            <Spacer height="48px"/>
             <Row className="main_content_container">
                 <Column>
                     <h3 style={{alignSelf: "center"}}>리뷰 작성하기</h3>
-                    <Spacer length={15} />
+                    <Spacer height="15px" />
                     <ReviewEditor/>
                 </Column>
                 <RatioSpacer isHorizontal={false} ratio={5}/>
                 <Column>
                     <h3 style={{alignSelf: "center"}}>다른 분들의 리뷰</h3>
-                    <Spacer length={15} />
+                    <Spacer height="15px" />
                     <ReviewList
                         reviewDataList={[
                         ]}

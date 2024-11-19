@@ -36,9 +36,9 @@ function ReviewEditor() {
             <Column className="review_editor_container">
                 <TextEditor className="editor_store_name" placeholder="가게 이름" onChange={onChangeStoreName} isSingleLine={true}/>
                 <TextEditor className="editor_review_text" placeholder="리뷰" onChange={onChangeReviewText}/>
-                <Spacer length={15}/>
+                <Spacer height="15px"/>
                 <ReviewStarList className="review_star" onChangeStar={onChangeStar}/>
-                <Spacer length={15}/>
+                <Spacer height="15px"/>
                 <button className="finish_button" onClick={onClickFinishButton}>작성 완료</button>
             </Column>
         </div>

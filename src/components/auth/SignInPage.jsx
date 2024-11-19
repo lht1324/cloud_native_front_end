@@ -8,7 +8,7 @@ function SignInPage() {
     return (
         <div className="sign_in_page_wrapper">
             <Header />
-            <Spacer length={48}/>
+            <Spacer height="48px"/>
             <AuthInfoInput title="로그인"/>
             <Footer/>
         </div>

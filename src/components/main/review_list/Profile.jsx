@@ -8,7 +8,7 @@ function Profile({ profileSrc, author}) {
             <div className="image_container">
                 <img src={profileSrc} alt={author} style={{width: "32px", height: "32px"}}/>
             </div>
-            <Spacer isHorizontal={false} length={5}/>
+            <Spacer width="5px"/>
             <h4 className="author" style={{justifySelf: "end"}}>{author}</h4>
         </Row>
     )

@@ -18,20 +18,22 @@ function AuthInfoInput({ title }) {
     return (
         <div className="auth_info_input_wrapper">
             <p className="auth_info_input_title">{title}</p>
-            <Spacer length={15}/>
+            <Spacer height="15px"/>
             <Column className="auth_info_input_container">
                 <Row className="auth_info_input_input_container">
                     <span className="auth_info_input_type">아이디</span>
-                    <Spacer isHorizontal={false} length={12}/>
+                    <Spacer width="12px"/>
                     <input className="auth_info_input_input_box" type="text" value={id} onChange={onChangeId}/>
                 </Row>
-                <Spacer length={12}/>
+                <Spacer height="12px"/>
                 <Row className="auth_info_input_input_container">
                     <span className="auth_info_input_type">비밀번호</span>
-                    <Spacer isHorizontal={false} length={12}/>
+                    <Spacer width="12px"/>
                     <input className="auth_info_input_input_box" type="text" value={password}
                            onChange={onChangePassword}/>
                 </Row>
+                <Spacer height="12px"/>
+                <button></button>
             </Column>
         </div>
     )

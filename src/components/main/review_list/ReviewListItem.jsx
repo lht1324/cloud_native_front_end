@@ -13,11 +13,11 @@ function ReviewListItem({ reviewData, isLastItem }) {
             style={isLastItem ? { } : { marginBottom: "15px" }}
         >
             <h3>{reviewData.storeName}</h3>
-            <Spacer length={25}/>
+            <Spacer height="24px"/>
             <p className="review">{reviewData.review}</p>
-            <Spacer length={40}/>
+            <Spacer height="40px"/>
             <Profile profileSrc={ProfilePlaceholder} author={reviewData.author}/>
-            <Spacer/>
+            <Spacer height="12px"/>
             {
                 getIntList(5).map((starIndex) => {
                     const starState = starIndex < reviewData.starCount

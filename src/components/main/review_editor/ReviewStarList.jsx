@@ -1,9 +1,8 @@
 import "./ReviewStarList.css"
-import {memo, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import {memo, useCallback, useEffect, useRef, useState} from "react";
 import Row from "../../public/Row";
 import Column from "../../public/Column";
 import StarImage from "../../public/StarImage";
-import {throttle} from "lodash";
 
 function ReviewStarList({
     onChangeStar
