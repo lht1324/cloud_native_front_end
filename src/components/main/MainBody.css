@@ -12,8 +12,54 @@
     justify-content: center;
 }
 
+.main_content_review_editor_container {
+    position: relative;
+
+    width: fit-content;
+    height: fit-content;
+}
+
+.main_content_review_editor {
+    width: fit-content;
+    height: fit-content;
+}
+
+.main_content_review_editor_hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    background: whitesmoke;
+    opacity: 0.9;
+
+    align-content: center;
+}
+
+.main_content_review_editor_login_button {
+    padding: 12px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 10px;
+
+    color: black;
+    font-size: 16px;
+}
+
+.main_content_review_editor_login_button:hover {
+    background: darkgrey;
+    border: 2px solid white;
+
+    color: whitesmoke;
+}
+
 p {
     width: fit-content;
+}
+
+h3 {
+    align-self: center;
 }
 
 textarea {

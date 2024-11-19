@@ -24,14 +24,19 @@ function MainBody() {
             </div>
             <Spacer height="48px"/>
             <Row className="main_content_container">
-                <Column>
-                    <h3 style={{alignSelf: "center"}}>리뷰 작성하기</h3>
-                    <Spacer height="15px" />
-                    <ReviewEditor/>
-                </Column>
+                <div className="main_content_review_editor_container">
+                    <Column className="main_content_review_editor">
+                        <h3>리뷰 작성하기</h3>
+                        <Spacer height="15px" />
+                        <ReviewEditor/>
+                    </Column>
+                    <div className="main_content_review_editor_hover">
+                        <button className="main_content_review_editor_login_button">로그인 후<br/>리뷰를 작성해주세요!</button>
+                    </div>
+                </div>
                 <RatioSpacer isHorizontal={false} ratio={5}/>
                 <Column>
-                    <h3 style={{alignSelf: "center"}}>다른 분들의 리뷰</h3>
+                    <h3>다른 분들의 리뷰</h3>
                     <Spacer height="15px" />
                     <ReviewList
                         reviewDataList={[
