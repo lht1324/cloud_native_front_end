@@ -5,13 +5,22 @@ function TextEditor({
     placeholder,
     onChange,
     style,
-    rows = undefined
+    isSingleLine = false
 }) {
     const [text, setText] = useState("")
     const onChangeText = useCallback((e) => {
-        setText(e.target.value)
-        onChange(e.target.value)
-    }, [setText, onChange])
+        if (isSingleLine) {
+            const newText = e.target.value.replace(/\n/g, "\n")
+            
+            if (!newText.includes("\n")) {
+                setText(e.target.value)
+                onChange(e.target.value)
+            }
+        } else {
+            setText(e.target.value)
+            onChange(e.target.value)
+        }
+    }, [isSingleLine, onChange])
     
     return (
         <textarea
@@ -20,7 +29,6 @@ function TextEditor({
             value={text}
             onChange={onChangeText}
             style={style}
-            rows={rows}
         />
     )
 }

@@ -4,6 +4,7 @@ import Spacer from "../public/Spacer";
 import Row from "../public/Row";
 import Column from "../public/Column";
 import ReviewList from "./review_list/ReviewList";
+import RatioSpacer from "../public/RatioSpacer";
 
 function MainBody() {
     return (
@@ -21,18 +22,21 @@ function MainBody() {
                 <p>당신의 점심을 건네고, 다른 사람의 점심을 받는 사이트.</p>
                 <p><b>ㅇㅈㅁ</b>입니다.</p>
             </div>
-            <Spacer length={24}/>
+            <Spacer length={48}/>
             <Row className="main_content_container">
                 <Column>
                     <h3 style={{alignSelf: "center"}}>리뷰 작성하기</h3>
                     <Spacer length={15} />
                     <ReviewEditor/>
                 </Column>
-                <Spacer isHorizontal={false} length={48} />
+                <RatioSpacer isHorizontal={false} ratio={5}/>
                 <Column>
                     <h3 style={{alignSelf: "center"}}>다른 분들의 리뷰</h3>
                     <Spacer length={15} />
-                    <ReviewList/>
+                    <ReviewList
+                        reviewDataList={[
+                        ]}
+                    />
                 </Column>
             </Row>
         </div>

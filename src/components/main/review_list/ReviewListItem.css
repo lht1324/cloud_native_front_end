@@ -1,6 +1,6 @@
 .review_list_item_wrapper {
-    padding: 24px;
-    max-width: 30vw;
+    max-width: 24vw;
+    padding: 2vw;
 
     border: 1px solid lightgray;
     border-radius: 10px;
@@ -13,12 +13,4 @@
     text-align: start;
 
     white-space: break-spaces;
-    /*overflow-wrap: anywhere;*/
-    /*word-break: normal;*/
-
-    /*overflow: hidden;*/
-    /*text-overflow: clip;*/
-    /*word-wrap: break-word;*/
-    /*word-break: keep-all;*/
-    /*overflow-wrap: normal;*/
 }

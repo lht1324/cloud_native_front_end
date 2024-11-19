@@ -5,14 +5,17 @@ import {memo} from "react";
 function ReviewList({ reviewDataList = [] }) {
     return(
         <div className="review_list_wrapper">
-            {
-                reviewDataList.map((reviewData, index) => {
+            {reviewDataList.length !== 0
+                ? reviewDataList.map((reviewData, index) => {
                     return <ReviewListItem
                         key={index}
                         reviewData={reviewData}
                         isLastItem={reviewDataList.length === index + 1}
                     />
                 })
+                : <div>
+
+                </div>
             }
         </div>
     )

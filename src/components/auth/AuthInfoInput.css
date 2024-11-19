@@ -1,0 +1,38 @@
+.auth_info_input_wrapper {
+    width: fit-content;
+}
+
+.auth_info_input_title {
+    justify-self: center;
+
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.auth_info_input_container {
+    padding: 24px;
+
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.auth_info_input_input_container {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.auth_info_input_type {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.auth_info_input_input_box {
+    padding: 12px;
+    height: fit-content;
+    border: 1px solid gray;
+    font-size: 16px;
+}
+
+.auth_info_input_box:focus {
+    border: 1px solid black;
+}

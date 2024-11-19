@@ -1,7 +1,7 @@
 import "./ReviewEditor.css"
 import ReviewStarList from "./ReviewStarList";
 import Column from "../../public/Column";
-import {memo, useCallback, useRef, useState} from "react";
+import {memo, useCallback, useRef} from "react";
 import Spacer from "../../public/Spacer";
 import TextEditor from "../../public/TextEditor";
 
@@ -11,12 +11,12 @@ function ReviewEditor() {
     const starCountRef = useRef(0.0)
 
     const onChangeStoreName = useCallback((text) => {
-        if (text.takeLast !== "\n") {
+        if (!text.includes("\n")) {
             storeNameRef.current = text
         }
     }, [])
     const onChangeReviewText = useCallback((text) => {
-        if (text.takeLast !== "\n") {
+        if (!text.includes("\n")) {
             reviewTextRef.current = text
         }
     }, [])
@@ -24,13 +24,17 @@ function ReviewEditor() {
         starCountRef.current = count
     }, [])
     const onClickFinishButton = useCallback(() => {
-        console.log(`Review\n${reviewTextRef.current}\nstarCount = ${starCountRef.current}`)
+        if (storeNameRef.current.length !== 0 && reviewTextRef.current.length !== 0) {
+            console.log(`Review\n${reviewTextRef.current}\nstarCount = ${starCountRef.current}`)
+        } else {
+            alert("가게 이름과 리뷰를 전부 입력해주세요.")
+        }
     }, [])
 
     return (
         <div className="review_editor_wrapper">
             <Column className="review_editor_container">
-                <TextEditor className="editor_store_name" placeholder="가게 이름" onChange={onChangeStoreName} rows={1}/>
+                <TextEditor className="editor_store_name" placeholder="가게 이름" onChange={onChangeStoreName} isSingleLine={true}/>
                 <TextEditor className="editor_review_text" placeholder="리뷰" onChange={onChangeReviewText}/>
                 <Spacer length={15}/>
                 <ReviewStarList className="review_star" onChangeStar={onChangeStar}/>
