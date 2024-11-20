@@ -4,26 +4,9 @@ import Column from "../../public/Column";
 import {useCallback, useRef} from "react";
 import Spacer from "../../public/Spacer";
 import AuthInfoInput from "./AuthInfoInput";
+import {Link} from "react-router-dom";
 
-function AuthInfoBox({ title, onClickFinishButton }) {
-    const id = useRef("");
-    const password = useRef("");
-
-    const onChangeId = useCallback((text) => {
-        id.current = text
-    }, [])
-    const onChangePassword = useCallback((text) => {
-        password.current = text
-    }, [])
-
-    const onClickButton = useCallback(() => {
-        if (id.current.length !== 0 && password.current.length !== 0) {
-            onClickFinishButton()
-        } else {
-            alert("아이디와 비밀번호를 모두 입력해주세요.")
-        }
-    }, [onClickFinishButton])
-
+function AuthInfoBox({ title, onChangeId, onChangePassword, onClickFinishButton }) {
     return (
         <div className="auth_info_box_wrapper">
             <p className="auth_info_box_title">{title}</p>
@@ -32,16 +15,18 @@ function AuthInfoBox({ title, onClickFinishButton }) {
                 <Row className="auth_info_box_input_container">
                     <span className="auth_info_box_type">아이디</span>
                     <Spacer width="12px"/>
-                    <AuthInfoInput type="text" value={id} onChange={onChangeId}/>
+                    <AuthInfoInput type="text" onChange={onChangeId}/>
                 </Row>
                 <Spacer height="12px"/>
                 <Row className="auth_info_box_input_container">
                     <span className="auth_info_box_type">비밀번호</span>
                     <Spacer width="12px"/>
-                    <AuthInfoInput type="text" value={password} onChange={onChangePassword}/>
+                    <AuthInfoInput type="password" onChange={onChangePassword}/>
                 </Row>
                 <Spacer height="12px"/>
-                <button className="auth_info_box_button" onClick={onClickButton}>{title}</button>
+                <button className="auth_info_box_button" onClick={onClickFinishButton}>{title}</button>
+                <Spacer height="12px"/>
+                {(title === "로그인") && <Link className="auth_info_box_sign_up_link" to="/signup">계정이 없으신가요?</Link>}
             </Column>
         </div>
     )

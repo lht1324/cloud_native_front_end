@@ -1,7 +1,7 @@
 import "./AuthInfoInput.css"
 import {useCallback, useState} from "react";
 
-function AuthInfoInput({ onChange }) {
+function AuthInfoInput({ type, onChange }) {
     const [text, setText] = useState("")
     const onChangeText = useCallback((e) => {
         const newText = e.target.value.replace(/\n/g, "\n")
@@ -15,7 +15,7 @@ function AuthInfoInput({ onChange }) {
 
     return <input
         className="auth_info_input"
-        type="text"
+        type={type}
         value={text}
         onChange={onChangeText}
     />

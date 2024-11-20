@@ -55,3 +55,7 @@
 
     color: whitesmoke;
 }
+
+.auth_info_box_sign_up_link {
+    align-self: end;
+}

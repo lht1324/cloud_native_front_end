@@ -7,7 +7,7 @@ function MainPage(props) {
     return (
         <div className="main_page_wrapper">
             <Header />
-            <MainBody />
+            <MainBody/>
             <Footer/>
         </div>
     )

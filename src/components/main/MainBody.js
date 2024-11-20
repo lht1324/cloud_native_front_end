@@ -5,8 +5,32 @@ import Row from "../public/Row";
 import Column from "../public/Column";
 import ReviewList from "./review_list/ReviewList";
 import RatioSpacer from "../public/RatioSpacer";
+import {useCallback} from "react";
+import {createUser} from "../../services/userApi";
+import {useNavigate} from "react-router-dom";
 
-function MainBody() {
+function MainBody({}) {
+    const navigate = useNavigate();
+
+    const onClickLoginButton = useCallback(() => {
+        navigate("/signin")
+        // createUser({
+        //     id: "12345abc",
+        //     password: "노무현",
+        // }).then((response) => {
+        //     switch(response.status) {
+        //         case 201: {
+        //             console.log(`res = ${JSON.stringify(response.data)}`);
+        //             break;
+        //         }
+        //         default: {
+        //             break;
+        //         }
+        //     }
+        //     // console.log(`response = ${JSON.stringify(response)}`);
+        // })
+    }, [])
+
     return (
         <div className="main_body_wrapper">
             <Spacer height="24px"/>
@@ -31,7 +55,12 @@ function MainBody() {
                         <ReviewEditor/>
                     </Column>
                     <div className="main_content_review_editor_hover">
-                        <button className="main_content_review_editor_login_button">로그인 후<br/>리뷰를 작성해주세요!</button>
+                        <button
+                            className="main_content_review_editor_login_button"
+                            onClick={onClickLoginButton}
+                        >
+                            로그인 후<br/>리뷰를 작성해주세요!
+                        </button>
                     </div>
                 </div>
                 <RatioSpacer isHorizontal={false} ratio={5}/>
