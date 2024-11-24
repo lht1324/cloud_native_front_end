@@ -3,33 +3,21 @@ import ReviewEditor from "./review_editor/ReviewEditor";
 import Spacer from "../public/Spacer";
 import Row from "../public/Row";
 import Column from "../public/Column";
-import ReviewList from "./review_list/ReviewList";
+import ReviewList from "../public/review_list/ReviewList";
 import RatioSpacer from "../public/RatioSpacer";
-import {useCallback} from "react";
-import {createUser} from "../../services/userApi";
+import {memo, useCallback} from "react";
 import {useNavigate} from "react-router-dom";
 
-function MainBody({}) {
+function MainBody({
+    isLoggedIn,
+    userInfo = { },
+    reviewIdList = [],
+}) {
     const navigate = useNavigate();
 
     const onClickLoginButton = useCallback(() => {
         navigate("/signin")
-        // createUser({
-        //     id: "12345abc",
-        //     password: "노무현",
-        // }).then((response) => {
-        //     switch(response.status) {
-        //         case 201: {
-        //             console.log(`res = ${JSON.stringify(response.data)}`);
-        //             break;
-        //         }
-        //         default: {
-        //             break;
-        //         }
-        //     }
-        //     // console.log(`response = ${JSON.stringify(response)}`);
-        // })
-    }, [])
+    }, [navigate])
 
     return (
         <div className="main_body_wrapper">
@@ -52,24 +40,23 @@ function MainBody({}) {
                     <Column className="main_content_review_editor">
                         <h3>리뷰 작성하기</h3>
                         <Spacer height="15px" />
-                        <ReviewEditor/>
+                        <ReviewEditor userInfo={userInfo}/>
                     </Column>
-                    <div className="main_content_review_editor_hover">
+                    {!isLoggedIn && <div className="main_content_review_editor_hover">
                         <button
                             className="main_content_review_editor_login_button"
                             onClick={onClickLoginButton}
                         >
                             로그인 후<br/>리뷰를 작성해주세요!
                         </button>
-                    </div>
+                    </div>}
                 </div>
                 <RatioSpacer isHorizontal={false} ratio={5}/>
                 <Column>
                     <h3>다른 분들의 리뷰</h3>
                     <Spacer height="15px" />
                     <ReviewList
-                        reviewDataList={[
-                        ]}
+                        reviewIdList={reviewIdList}
                     />
                 </Column>
             </Row>
@@ -77,4 +64,4 @@ function MainBody({}) {
     )
 }
 
-export default MainBody;
+export default memo(MainBody);

@@ -1,12 +1,18 @@
 import "./AuthInfoBox.css"
 import Row from "../../public/Row";
 import Column from "../../public/Column";
-import {useCallback, useRef} from "react";
 import Spacer from "../../public/Spacer";
 import AuthInfoInput from "./AuthInfoInput";
 import {Link} from "react-router-dom";
 
-function AuthInfoBox({ title, onChangeId, onChangePassword, onClickFinishButton }) {
+function AuthInfoBox({
+    title,
+    isLogin = true,
+    onChangeId,
+    onChangePassword,
+    onChangeNickname = () => { },
+    onClickButton
+}) {
     return (
         <div className="auth_info_box_wrapper">
             <p className="auth_info_box_title">{title}</p>
@@ -23,10 +29,16 @@ function AuthInfoBox({ title, onChangeId, onChangePassword, onClickFinishButton 
                     <Spacer width="12px"/>
                     <AuthInfoInput type="password" onChange={onChangePassword}/>
                 </Row>
+                {!isLogin && <Spacer height="12px"/>}
+                {!isLogin && <Row className="auth_info_box_input_container">
+                    <span className="auth_info_box_type">닉네임</span>
+                    <Spacer width="12px"/>
+                    <AuthInfoInput type="password" onChange={onChangeNickname}/>
+                </Row>}
                 <Spacer height="12px"/>
-                <button className="auth_info_box_button" onClick={onClickFinishButton}>{title}</button>
+                <button className="auth_info_box_button" onClick={onClickButton}>{title}</button>
                 <Spacer height="12px"/>
-                {(title === "로그인") && <Link className="auth_info_box_sign_up_link" to="/signup">계정이 없으신가요?</Link>}
+                {isLogin && <Link className="auth_info_box_sign_up_link" to="/signup">계정이 없으신가요?</Link>}
             </Column>
         </div>
     )

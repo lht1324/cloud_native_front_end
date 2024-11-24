@@ -1,9 +1,9 @@
 import "./ReviewListItem.css"
 import ProfilePlaceholder from "../../../assets/image/ic_profile_placeholder.png"
 import {getIntList} from "../../../js/functions";
-import Spacer from "../../public/Spacer";
+import Spacer from "../Spacer";
 import Profile from "./Profile";
-import StarImage from "../../public/StarImage";
+import StarImage from "../StarImage";
 import {memo} from "react";
 
 function ReviewListItem({ reviewData, isLastItem }) {

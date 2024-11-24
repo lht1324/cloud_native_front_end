@@ -1,6 +1,6 @@
 import "./Profile.css"
-import Spacer from "../../public/Spacer";
-import Row from "../../public/Row";
+import Spacer from "../Spacer";
+import Row from "../Row";
 
 function Profile({ profileSrc, author}) {
     return (

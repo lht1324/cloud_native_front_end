@@ -4,8 +4,15 @@ import Column from "../../public/Column";
 import {memo, useCallback, useRef} from "react";
 import Spacer from "../../public/Spacer";
 import TextEditor from "../../public/TextEditor";
+import useAxiosRequest from "../../../hook/useAxiosRequest";
+import {postReview} from "../../../services/reviewApi";
+import {getUserInfoById, putUserInfo} from "../../../services/userApi";
 
-function ReviewEditor() {
+function ReviewEditor({
+    userInfo = { },
+}) {
+    const { requestAPI } = useAxiosRequest();
+
     const storeNameRef = useRef("")
     const reviewTextRef = useRef("")
     const starCountRef = useRef(0.0)
@@ -23,13 +30,69 @@ function ReviewEditor() {
     const onChangeStar = useCallback((count) => {
         starCountRef.current = count
     }, [])
-    const onClickFinishButton = useCallback(() => {
+    const onClickFinishButton = useCallback(async () => {
         if (storeNameRef.current.length !== 0 && reviewTextRef.current.length !== 0) {
-            console.log(`Review\n${reviewTextRef.current}\nstarCount = ${starCountRef.current}`)
+            await postReviewInside();
         } else {
             alert("가게 이름과 리뷰를 전부 입력해주세요.")
         }
     }, [])
+
+    const postReviewInside = useCallback(async () => {
+        await requestAPI(
+            postReview({
+                storeName: storeNameRef.current,
+                author: userInfo.nickname,
+                review: reviewTextRef.current,
+                starCount: starCountRef.current,
+            }),
+            async (data) => {
+                await getUser(data.reviewRowId);
+            },
+            (statusCode, message) => {
+                console.log(`postReview [${statusCode}]: ${message}`);
+            },
+            (error) => {
+                console.log(`postReview Error: ${error.message}`);
+            }
+        )
+    }, [requestAPI, userInfo.nickname])
+
+    const getUser = useCallback(async (newReviewId) => {
+        await requestAPI(
+            getUserInfoById(userInfo.id),
+            async (data) => {
+                console.log(`userInfo = ${JSON.stringify(data)}`)
+                await putUser(data.userInfo, newReviewId);
+            },
+            (statusCode, message) => {
+                console.log(`getUser [${statusCode}]: ${message}`);
+            },
+            (error) => {
+                console.log(`getUser Error: ${error.message}`);
+            }
+        )
+    }, [requestAPI, userInfo.id])
+
+    const putUser = useCallback(async ({ id, nickname, reviewIdList }, newReviewId) => {
+
+        await requestAPI(
+            putUserInfo({
+                id: id,
+                nickname: nickname,
+                reviewIdList: [...reviewIdList, newReviewId]
+            }),
+            (data) => {
+                alert("리뷰가 추가되었습니다.")
+            },
+            (statusCode, message) => {
+                console.log(`putUser [${statusCode}]: ${message}`);
+            },
+            (error) => {
+                console.log(`putUser Error: ${error.message}`);
+            }
+        )
+    }, [requestAPI])
 
     return (
         <div className="review_editor_wrapper">

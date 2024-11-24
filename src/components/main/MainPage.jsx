@@ -1,16 +1,13 @@
-import Header from "../public/Header";
 import MainBody from "./MainBody";
 import "./MainPage.css"
-import Footer from "../public/Footer";
+import {memo} from "react";
 
-function MainPage(props) {
+function MainPage({ isLoggedIn, userInfo }) {
     return (
         <div className="main_page_wrapper">
-            <Header />
-            <MainBody/>
-            <Footer/>
+            <MainBody isLoggedIn={isLoggedIn} userInfo={userInfo} />
         </div>
     )
 }
 
-export default MainPage;
+export default memo(MainPage);

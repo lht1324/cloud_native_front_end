@@ -1,13 +1,14 @@
-import {memo, useCallback, useState} from "react";
+import {memo, useCallback, useEffect, useState} from "react";
 
 function TextEditor({
     className,
-    placeholder,
+    initialValue = "",
+    placeholder = "",
     onChange,
-    style,
+    style = { },
     isSingleLine = false
 }) {
-    const [text, setText] = useState("")
+    const [text, setText] = useState(initialValue);
     const onChangeText = useCallback((e) => {
         if (isSingleLine) {
             const newText = e.target.value.replace(/\n/g, "\n")
@@ -21,6 +22,12 @@ function TextEditor({
             onChange(e.target.value)
         }
     }, [isSingleLine, onChange])
+
+    useEffect(() => {
+        if (text.length === 0) {
+            setText(initialValue);
+        }
+    }, [initialValue]);
     
     return (
         <textarea

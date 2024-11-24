@@ -5,8 +5,9 @@ function AuthInfoInput({ type, onChange }) {
     const [text, setText] = useState("")
     const onChangeText = useCallback((e) => {
         const newText = e.target.value.replace(/\n/g, "\n")
+        const regex = /^[a-zA-Z0-9]*$/;
 
-        if (!newText.includes("\n")) {
+        if (regex.test(newText) && !newText.includes("\n")) {
             setText(newText)
             onChange(newText)
         }

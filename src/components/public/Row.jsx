@@ -1,3 +1,5 @@
+import {memo} from "react";
+
 function Row({ children, className, style, onClick = () => { } }) {
     const rowStyle = {
         ...{
@@ -13,4 +15,4 @@ function Row({ children, className, style, onClick = () => { } }) {
     )
 }
 
-export default Row;
+export default memo(Row);
