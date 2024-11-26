@@ -33,7 +33,7 @@ function AuthInfoBox({
                 {!isLogin && <Row className="auth_info_box_input_container">
                     <span className="auth_info_box_type">닉네임</span>
                     <Spacer width="12px"/>
-                    <AuthInfoInput type="password" onChange={onChangeNickname}/>
+                    <AuthInfoInput type="text" onChange={onChangeNickname}/>
                 </Row>}
                 <Spacer height="12px"/>
                 <button className="auth_info_box_button" onClick={onClickButton}>{title}</button>

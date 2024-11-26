@@ -47,6 +47,7 @@ function ReviewEditor({
                 starCount: starCountRef.current,
             }),
             async (data) => {
+                await console.log(`id = ${userInfo.id}, userInfo = ${JSON.stringify(userInfo)}, res = ${JSON.stringify(data)}`);
                 await getUser(data.reviewRowId);
             },
             (statusCode, message) => {
@@ -75,7 +76,6 @@ function ReviewEditor({
     }, [requestAPI, userInfo.id])
 
     const putUser = useCallback(async ({ id, nickname, reviewIdList }, newReviewId) => {
-
         await requestAPI(
             putUserInfo({
                 id: id,
