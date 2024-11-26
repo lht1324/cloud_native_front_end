@@ -1,16 +1,17 @@
 import Header from "../public/header/Header";
-import {Outlet, useNavigate} from "react-router-dom";
-import {useCallback} from "react";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
+import {useCallback, useEffect} from "react";
 import {postLogout} from "../../services/userApi";
 import useAxiosRequest from "../../hook/useAxiosRequest";
 import Footer from "../public/Footer";
 
 function Home({
     isLoggedIn,
-    id = "",
-    nickname = "",
+    userInfo,
+    onChangeLocation,
     onChangeIsLoggedIn
 }) {
+    const location = useLocation();
     const navigate = useNavigate();
     const { requestAPI } = useAxiosRequest();
     
@@ -21,8 +22,8 @@ function Home({
         navigate("/signup")
     }, [navigate])
     const onClickUserInfo = useCallback(() => {
-        navigate(`/user/${id}`)
-    }, [id, navigate])
+        navigate(`/user/${userInfo.id}`)
+    }, [userInfo.id, navigate])
     const onClickLogout = useCallback(async () => {
         if (isLoggedIn) {
             await requestAPI(
@@ -43,13 +44,16 @@ function Home({
         } else {
             alert("이미 로그아웃된 상태입니다.")
         }
-        // userinfo -> home
     }, [isLoggedIn, navigate, onChangeIsLoggedIn, requestAPI])
+
+    useEffect(() => {
+        onChangeLocation(location.pathname);
+    }, [location.pathname, onChangeLocation])
 
     return (<div className="home_wrapper">
         <Header
             isLoggedIn={isLoggedIn}
-            nickname={nickname}
+            nickname={userInfo.nickname}
             onClickSignIn={onClickSignIn}
             onClickSignUp={onClickSignUp}
             onClickUserInfo={onClickUserInfo}

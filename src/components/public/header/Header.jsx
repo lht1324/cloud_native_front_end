@@ -30,7 +30,7 @@ function Header({
                 <h1 className="header_title">ㅇㅈㅁ?</h1>
                 <div className="header_user_info_container">
                     {isLoggedIn && isButtonVisible && <div className="header_user_info_nickname_container">
-                        <span><b>{"OverEasy"}</b>님, 환영합니다.</span>
+                        <span><b>{nickname}</b>님, 환영합니다.</span>
                         <Spacer height="12px"/>
                     </div>}
                     {!isLoggedIn && isButtonVisible && <div className="header_button_container">

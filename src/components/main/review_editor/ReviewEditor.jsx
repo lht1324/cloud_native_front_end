@@ -1,7 +1,7 @@
 import "./ReviewEditor.css"
 import ReviewStarList from "./ReviewStarList";
 import Column from "../../public/Column";
-import {memo, useCallback, useRef} from "react";
+import {memo, useCallback, useEffect, useRef} from "react";
 import Spacer from "../../public/Spacer";
 import TextEditor from "../../public/TextEditor";
 import useAxiosRequest from "../../../hook/useAxiosRequest";
@@ -9,9 +9,12 @@ import {postReview} from "../../../services/reviewApi";
 import {getUserInfoById, putUserInfo} from "../../../services/userApi";
 
 function ReviewEditor({
-    userInfo = { },
+    userInfo,
 }) {
     const { requestAPI } = useAxiosRequest();
+
+    const idRef = useRef("");
+    const nicknameRef = useRef("");
 
     const storeNameRef = useRef("")
     const reviewTextRef = useRef("")
@@ -47,7 +50,7 @@ function ReviewEditor({
                 starCount: starCountRef.current,
             }),
             async (data) => {
-                await console.log(`id = ${userInfo.id}, userInfo = ${JSON.stringify(userInfo)}, res = ${JSON.stringify(data)}`);
+                await console.log(`id = ${idRef.current}`);
                 await getUser(data.reviewRowId);
             },
             (statusCode, message) => {
@@ -61,9 +64,8 @@ function ReviewEditor({
 
     const getUser = useCallback(async (newReviewId) => {
         await requestAPI(
-            getUserInfoById(userInfo.id),
+            getUserInfoById(idRef.current),
             async (data) => {
-                console.log(`userInfo = ${JSON.stringify(data)}`)
                 await putUser(data.userInfo, newReviewId);
             },
             (statusCode, message) => {
@@ -75,15 +77,18 @@ function ReviewEditor({
         )
     }, [requestAPI, userInfo.id])
 
-    const putUser = useCallback(async ({ id, nickname, reviewIdList }, newReviewId) => {
+    const putUser = useCallback(async ({ rowId, id, nickname, reviewIdList }, newReviewId) => {
+        console.log()
         await requestAPI(
             putUserInfo({
+                rowId: rowId,
                 id: id,
                 nickname: nickname,
                 reviewIdList: [...reviewIdList, newReviewId]
             }),
             (data) => {
                 alert("리뷰가 추가되었습니다.")
+                window.location.reload();
             },
             (statusCode, message) => {
                 console.log(`putUser [${statusCode}]: ${message}`);
@@ -93,6 +98,11 @@ function ReviewEditor({
             }
         )
     }, [requestAPI])
+
+    useEffect(() => {
+        idRef.current = userInfo.id;
+        nicknameRef.current = userInfo.nickname;
+    }, [userInfo])
 
     return (
         <div className="review_editor_wrapper">

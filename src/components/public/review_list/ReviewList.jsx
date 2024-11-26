@@ -33,7 +33,6 @@ function ReviewList({ id = undefined, reviewIdList = [] }) {
     return(
         <div className="review_list_wrapper">
             {reviewDataList.length !== 0 && reviewDataList.map((reviewData, index) => {
-                console.log(`list[${index}] = ${reviewData.review}`)
                 return <ReviewListItem
                     key={reviewData.id}
                     reviewData={reviewData}

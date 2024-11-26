@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import SignUpPage from "./components/auth/SignUpPage";
 import SignInPage from "./components/auth/SignInPage";
 import UserInfoPage from "./components/user/UserInfoPage";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {getSignInAuto} from "./services/userApi";
 import Home from "./components/home/Home";
 import useAxiosRequest from "./hook/useAxiosRequest";
@@ -12,10 +12,21 @@ import useAxiosRequest from "./hook/useAxiosRequest";
 function App() {
     const { requestAPI } = useAxiosRequest();
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [id, setId] = useState("");
-    const [nickname, setNickname] = useState("");
+    const [locationHistory, setLocationHistory] = useState({ prevLocation: "/", currentLocation: "/" });
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userInfo, setUserInfo] = useState({ });
+
+    const onChangeLocation = useCallback((newLocation) => {
+        const prevLocation = locationHistory.currentLocation
+
+        if (prevLocation !== newLocation) {
+            setLocationHistory({
+                prevLocation: prevLocation,
+                currentLocation: newLocation,
+            })
+        }
+    }, [locationHistory.currentLocation])
     const onChangeIsLoggedIn = useCallback((newIsLoggedIn) => {
         setIsLoggedIn(newIsLoggedIn);
     }, [])
@@ -26,14 +37,14 @@ function App() {
             (data) => {
                 console.log(JSON.stringify(data));
                 setIsLoggedIn(true);
-                setId(data.user.id);
-                setNickname(data.user.nickname);
+                setUserInfo({ id: data.user.id, nickname: data.user.nickname });
             },
             (statusCode, message) => {
                 setIsLoggedIn(false);
                 console.log(message);
             },
             (error) => {
+                setIsLoggedIn(false);
                 if (error.response) {
                     alert(error.response.data.message)
                 } else {
@@ -41,35 +52,30 @@ function App() {
                 }
             }
         )
-    }, []);
+    }, [requestAPI, setIsLoggedIn]);
 
-    const LocationWatcher = () => {
-        const location = useLocation();
-
-        useEffect(() => {
-            if (location.pathname === "/") {
-                checkAutoLogin();
-            }
-        }, [location.pathname])
-
-        return null;
-    }
+    useEffect(() => {
+        const { prevLocation, currentLocation } = locationHistory;
+        
+        if ((prevLocation !== currentLocation && currentLocation === "/") || (prevLocation === "/" && currentLocation === "/")) {
+            checkAutoLogin();
+        }
+    }, [locationHistory])
     
     return (
         <div className="App">
             <BrowserRouter>
-                <LocationWatcher/>
                 <Routes>
                     <Route
                         path="/"
                         element={<Home
                             isLoggedIn={isLoggedIn}
-                            id={id}
-                            nickname={nickname}
+                            userInfo={userInfo}
+                            onChangeLocation={onChangeLocation}
                             onChangeIsLoggedIn={onChangeIsLoggedIn}
                         />}
                     >
-                        <Route index element={<MainPage isLoggedIn={isLoggedIn} userInfo={{ id: id, nickname: nickname }}/>} />
+                        <Route index element={<MainPage isLoggedIn={isLoggedIn} userInfo={userInfo}/>} />
                         <Route path="/signin" element={<SignInPage onChangeIsLoggedIn={onChangeIsLoggedIn}/>} />
                         <Route path="/signup" element={<SignUpPage/>} />
                         <Route path="/user/:userId" element={<UserInfoPage/>} />

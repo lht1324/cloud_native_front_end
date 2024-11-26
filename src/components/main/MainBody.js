@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 
 function MainBody({
     isLoggedIn,
-    userInfo = { },
+    userInfo,
     reviewIdList = [],
 }) {
     const navigate = useNavigate();
